@@ -1,1 +1,0 @@
-<h1>EventZen Event Management Company App</h1>
