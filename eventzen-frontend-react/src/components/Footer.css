@@ -1,0 +1,25 @@
+/* footer.css */
+
+/* Ensure the body takes up the full viewport height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Wrapper to ensure content fills available space */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 66vh; /* Ensures it takes the full height of the viewport */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #921600;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto; /* Pushes footer to the bottom */
+  width: 100%;
+}
