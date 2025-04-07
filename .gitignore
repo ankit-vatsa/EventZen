@@ -28,7 +28,7 @@ ehthumbs.db
 
 # Docker
 docker-compose.override.yml
-Dockerfile
+
 
 # MySQL
 mysql_data/
