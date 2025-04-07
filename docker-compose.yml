@@ -1,0 +1,105 @@
+# version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: eventzen-mysql
+    environment:
+      MYSQL_DATABASE: eventzen
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf  
+
+  frontend:
+    build: ./eventzen-frontend-react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+
+  attendee:
+    build: ./eventzen-backend/attendeeManagement_NodeJs
+    ports:
+      - "6008:6008"
+    env_file:
+      - ./eventzen-backend/attendeeManagement_NodeJs/.env
+    depends_on:
+      - mysql
+
+  booking:
+    build: ./eventzen-backend/bookingManagement_NodeJs
+    ports:
+      - "6007:6007"
+    env_file:
+      - ./eventzen-backend/bookingManagement_NodeJs/.env
+    depends_on:
+      - mysql
+
+  user:
+    build: ./eventzen-backend/userManagement_NodeJs
+    ports:
+      - "6002:6002"
+    env_file:
+      - ./eventzen-backend/userManagement_NodeJs/.env
+    depends_on:
+      - mysql
+
+  event:
+    build: ./eventzen-backend/eventManagement_SpringBoot/eventManagement
+    ports:
+      - "6004:6004"
+    environment:
+      server.port : 6004
+      spring.datasource.url : jdbc:mysql://eventzen-mysql:3306/eventzen
+      spring.datasource.username : root
+      spring.datasource.password : root
+      spring.datasource.driver-class-name : com.mysql.cj.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto : update
+      spring.jpa.show-sql : true
+      spring.jpa.database-platform : org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      - mysql
+
+  venue:
+    build: ./eventzen-backend/venueManagement_SpringBoot/venueManagement
+    ports:
+      - "6003:6003"
+    environment:
+      server.port : 6003
+      spring.datasource.url : jdbc:mysql://eventzen-mysql:3306/eventzen
+      spring.datasource.username : root
+      spring.datasource.password : root
+      spring.datasource.driver-class-name : com.mysql.cj.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto : update
+      spring.jpa.show-sql : true
+      spring.jpa.database-platform : org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      - mysql
+
+  viewevent:
+    build: ./eventzen-backend/viewEvent_SpringBoot/eventviewing
+    ports:
+      - "6005:6005"
+    environment:
+      server.port : 6005
+      spring.datasource.url : jdbc:mysql://eventzen-mysql:3306/eventzen
+      spring.datasource.username : root
+      spring.datasource.password : root
+      spring.datasource.driver-class-name : com.mysql.cj.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto : update
+      spring.jpa.show-sql : true
+      spring.jpa.database-platform : org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      - mysql
+
+  vendor:
+    build: ./eventzen-backend/vendorManagement_dotNet/VendorManagementAPI
+    ports:
+      - "6006:6006"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:

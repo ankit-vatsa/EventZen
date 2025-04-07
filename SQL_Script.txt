@@ -27,6 +27,7 @@ CREATE TABLE events (
     date DATETIME NOT NULL,
     venue_id INT,
     created_by INT,
+    cost DOUBLE,
     FOREIGN KEY (venue_id) REFERENCES venues(id) ON DELETE SET NULL,
     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
 );

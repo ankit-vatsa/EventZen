@@ -1,0 +1,50 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# React Build
+/build/
+
+# IntelliJ IDEA
+.idea/
+
+# .NET
+/bin/
+/obj/
+/.vscode/
+
+# .env (environment variables)
+.env
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Docker
+docker-compose.override.yml
+Dockerfile
+
+# MySQL
+mysql_data/
+
+# Log Files
+*.log
+
+# IDEs
+*.iml
+.vscode/
+
+# Other System Files
+*.swp
+*.swo
+
+# Other Excluded Files (optional)
+*.bak
+*.tmp
+*.backup
